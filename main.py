@@ -1,5 +1,6 @@
 import os, sys
 from insurance.components.datavalidation import DataValidation
+from insurance.components.modeltrainer import ModelTrainer
 from insurance.logger import logging
 from insurance.exception import InsuranceException
 from insurance.utils import get_collection_as_dataframe
@@ -7,6 +8,7 @@ from insurance.entity.config_entity import DataIngestionConfig, TraningPipelineC
 from insurance.entity import config_entity
 from insurance.components.dataIngestion import DataIngestion
 from insurance.components.datatransformation import DataTransformation
+
 
 
 if __name__ == "__main__":
@@ -26,6 +28,10 @@ if __name__ == "__main__":
         data_transformation = DataTransformation(data_transformation_config=data_transformation_config, 
         data_ingestion_artifact=data_ingestion_artifact)
         data_transformation_artifact = data_transformation.initiate_data_transformation()
+        #model trainer
+        model_trainer_config = config_entity.ModelTrainerConfig(training_pipeline_config= traning_pipeline_config)
+        model_trainer = ModelTrainer(model_trainer_config=model_trainer_config, data_transformation_artifact=data_transformation_artifact)
+        model_trainer_artifact = model_trainer.initiate_model_trainer()
     except Exception as e:
           print(e)
 
