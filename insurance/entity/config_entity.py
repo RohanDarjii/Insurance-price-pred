@@ -70,3 +70,7 @@ class ModelTrainerConfig:
             self.overfitting_threshold = 0.3
         except Exception as e:
             InsuranceException(e,sys)
+
+class ModelEvaluationConfig:
+    def __init__(self,training_pipeline_config:TraningPipelineConfig):
+        self.change_threshold = 0.01
